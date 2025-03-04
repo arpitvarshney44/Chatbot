@@ -13,40 +13,59 @@ st.set_page_config(
 # Custom CSS for styling
 st.markdown("""
 <style>
+    /* Global styles */
     body {
         background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
         background-size: 400% 400%;
         animation: gradient 15s ease infinite;
-    }
-    
-    .main {
-        background: rgba(255,255,255,0.9);
-        backdrop-filter: blur(10px);
-        border-radius: 20px;
-        padding: 2rem;
-        max-width: 800px;
-        margin: auto;
-        min-height: 100vh;
-        overflow: hidden;
-        position: relative;
-    }
-    
-    @keyframes gradient {
-        0% { background-position: 0% 50%; }
-        50% { background-position: 100% 50%; }
-        100% { background-position: 0% 50%; }
-    }
-    
-    /* Chat message animations */
-    @keyframes fadeIn {
-        from { opacity: 0; transform: translateY(20px); }
-        to { opacity: 1; transform: translateY(0); }
+        margin: 0;
+        padding: 0;
     }
 
-    /* Message bubbles styling */
-    .stChatMessage {
+    /* Main container */
+    .main {
+        background: rgba(255,255,255,0.9) !important;
+        backdrop-filter: blur(10px) !important;
+        border-radius: 20px !important;
+        padding: 2rem !important;
+        max-width: 800px !important;
+        margin: auto !important;
+        min-height: 100vh !important;
+        overflow: hidden !important;
+        transform: translateZ(0);
+        position: relative !important;
+        box-shadow: 0 0 20px rgba(0,0,0,0.1) !important;
+    }
+
+    /* Header styling */
+    .header-container {
+        text-align: center;
+        margin-bottom: 2rem;
+        padding: 2rem 0;
+        background: linear-gradient(45deg, #4F46E5, #10B981);
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+    }
+
+    /* Chat container */
+    .chat-container {
+        max-height: 70vh !important;
+        overflow-y: auto !important;
+        padding: 0 1rem 8rem !important;
+        border-radius: 20px !important;
+        overflow: hidden !important;
+        transform: translateZ(0);
+        isolation: isolate !important;
+    }
+
+    /* Message bubbles */
+    [data-testid="stChatMessage"] {
+        max-width: 85% !important;
+        margin: 8px auto !important;
+        border-radius: 20px !important;
+        overflow: hidden !important;
         animation: fadeIn 0.3s ease-in;
-        margin: 1rem 0;
         transition: transform 0.2s;
     }
 
@@ -55,19 +74,19 @@ st.markdown("""
         border: 1px solid #e5e7eb !important;
         border-radius: 20px 20px 0 20px !important;
         margin-left: auto !important;
-        max-width: 75%;
         box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        transform: scale(0.98) translateZ(0);
     }
 
     [data-testid="stChatMessageAssistant"] {
         background-color: #f8f9ff !important;
         border-radius: 20px 20px 20px 0 !important;
-        max-width: 75%;
         box-shadow: 0 2px 4px rgba(0,0,0,0.05);
         border: 1px solid #e5e7eb !important;
+        transform: scale(0.98) translateZ(0);
     }
 
-    /* Input field styling */
+    /* Input field */
     .stChatInput {
         position: fixed !important;
         bottom: 5rem;
@@ -83,63 +102,46 @@ st.markdown("""
         z-index: 999;
     }
 
-    .stChatInput:hover {
-        border-color: #4F46E5 !important;
-        box-shadow: 0 4px 12px rgba(79, 70, 229, 0.2);
+    /* Animations */
+    @keyframes gradient {
+        0% { background-position: 0% 50%; }
+        50% { background-position: 100% 50%; }
+        100% { background-position: 0% 50%; }
     }
 
-    /* Header styling */
-    .header-container {
-        text-align: center;
-        margin-bottom: 2rem;
-        padding: 2rem 0;
-        background: linear-gradient(45deg, #4F46E5, #10B981);
-        -webkit-background-clip: text;
-        background-clip: text;
-        color: transparent;
+    @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(20px); }
+        to { opacity: 1; transform: translateY(0); }
     }
 
-    .title {
-        font-size: 2.5rem;
-        font-weight: 700;
-        margin-bottom: 0.5rem;
+    /* Mobile responsiveness */
+    @media (max-width: 768px) {
+        .main {
+            margin: 10px !important;
+            width: calc(100% - 20px) !important;
+            min-height: 95vh !important;
+            border-radius: 18px !important;
+            padding: 1rem !important;
+        }
+        
+        .chat-container {
+            max-height: 60vh !important;
+            border-radius: 18px !important;
+            padding: 0 0.5rem 6rem !important;
+        }
+        
+        [data-testid="stChatMessage"] {
+            max-width: 92% !important;
+            border-radius: 18px !important;
+        }
+        
+        .stChatInput {
+            width: 90% !important;
+            bottom: 4rem;
+        }
     }
 
-    .subtitle {
-        color: #666;
-        font-size: 1.1rem;
-        margin-bottom: 1rem;
-    }
-
-    /* Time display styling */
-    .time-display {
-        text-align: center;
-        color: #666;
-        font-size: 0.9em;
-        margin-bottom: 2rem;
-        padding: 0.5rem;
-        background: #f8f9fa;
-        border-radius: 8px;
-        display: inline-block;
-        margin: 0 auto 2rem;
-    }
-
-    /* Loading spinner styling */
-    .stSpinner > div {
-        border-color: #4F46E5 !important;
-        border-right-color: transparent !important;
-    }
-
-    /* Scrollable chat container */
-    .chat-container {
-        max-height: 70vh;
-        overflow-y: auto;
-        padding-bottom: 8rem;
-        border-radius: 20px;
-        overflow: hidden;
-    }
-            
-     /* Fixed footer styling */
+    /* Footer */
     .fixed-footer {
         position: fixed !important;
         bottom: 1.5rem;
@@ -156,32 +158,14 @@ st.markdown("""
         border-radius: 8px;
         z-index: 998;
     }
-    /* Add this at the end of your existing CSS */
-    @media (max-width: 768px) {
-        .main {
-            border-radius: 20px !important;
-            overflow: hidden !important;
-            margin: 10px !important;
-            width: calc(100% - 20px) !important;
-            min-height: 95vh !important;
-        }
-        
-        .chat-container {
-            max-height: 60vh !important;
-            padding: 0 0.5rem 6rem !important;
-        }
-        
-        [data-testid="stChatMessageUser"],
-        [data-testid="stChatMessageAssistant"] {
-            max-width: 90% !important;
-            margin-left: 5px !important;
-            margin-right: 5px !important;
-        }
+
+    /* Loading spinner */
+    .stSpinner > div {
+        border-color: #4F46E5 !important;
+        border-right-color: transparent !important;
     }
-       
 </style>
 """, unsafe_allow_html=True)
-
 # Header section
 st.markdown("""
 <div class="header-container">
