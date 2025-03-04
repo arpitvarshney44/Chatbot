@@ -106,7 +106,7 @@ st.markdown("""
 
     .stChatInput {
         position: fixed !important;
-        bottom: 2rem;
+        bottom: 5rem;
         width: 90% !important;
         max-width: 100% !important;
         left: 50% !important;
