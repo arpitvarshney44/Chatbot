@@ -3,17 +3,17 @@ from groq import Groq
 
 # Set up the page configuration
 st.set_page_config(
-    page_title="🤖 Arva",
-    page_icon="🚀 Chatbot",
+    page_title="ArvaGPT",
+    page_icon="🤖",
     layout="centered"
 )
 
 # Custom CSS for styling
 st.markdown("""
 <style>
-    .stChatInput {position: fixed; bottom: 2rem; width: 60%;}
+    .stChatInput {position: fixed; bottom: 5rem; width: 60%;}
     .stChatMessage {width: 80%; margin: 0 auto;}
-    .header {text-align: center; padding: 2rem 0;}
+    .header {text-align: center; padding: 4rem 0;}
     .sidebar .sidebar-content {background-color: #f0f2f6;}
 </style>
 """, unsafe_allow_html=True)
@@ -54,8 +54,8 @@ with st.sidebar:
     st.markdown("Built with ❤️ using [Streamlit](https://streamlit.io/) and [Groq](https://groq.com/)")
 
 # Main header
-st.header("🤖 Arva")
-st.markdown("Chatbot")
+st.header("🤖 ArvaGPT")
+st.markdown("AI powered Chatbot")
 
 # Initialize Groq client
 
