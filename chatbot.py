@@ -10,188 +10,165 @@ st.set_page_config(
     initial_sidebar_state="collapsed"
 )
 
-# Custom CSS for responsive design
+# Custom CSS for styling
 st.markdown("""
 <style>
-    /* Base styles */
     body {
         background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
         background-size: 400% 400%;
         animation: gradient 15s ease infinite;
-        margin: 0;
-        padding: 0;
     }
     
     .main {
         background: rgba(255,255,255,0.9);
         backdrop-filter: blur(10px);
         border-radius: 20px;
-        padding: 1rem !important;
-        width: 100% !important;
-        max-width: 100% !important;
+        padding: 2rem;
+    }
+    
+    @keyframes gradient {
+        0% { background-position: 0% 50%; }
+        50% { background-position: 100% 50%; }
+        100% { background-position: 0% 50%; }
+    }
+    /* Main container styling */
+    .main {
+        max-width: 800px;
+        margin: auto;
+        padding: 2rem 1rem;
         min-height: 100vh;
     }
 
-    /* Mobile-first adjustments */
-    @media (max-width: 768px) {
-        .main {
-            padding: 0.5rem !important;
-            border-radius: 0;
-        }
-        
-        .title {
-            font-size: 1.8rem !important;
-            margin-bottom: 0.3rem !important;
-        }
-        
-        .subtitle {
-            font-size: 0.9rem !important;
-            margin-bottom: 0.5rem !important;
-        }
-        
-        .time-display {
-            font-size: 0.8em !important;
-            padding: 0.3rem !important;
-            margin-bottom: 1rem !important;
-        }
-        
-        [data-testid="stChatMessageUser"], 
-        [data-testid="stChatMessageAssistant"] {
-            max-width: 90% !important;
-            margin: 0.5rem 0 !important;
-            font-size: 0.9rem;
-        }
-        
-        .stChatInput {
-            width: 95% !important;
-            bottom: 1rem !important;
-            padding: 0.5rem !important;
-            font-size: 0.9rem;
-        }
-        
-        .chat-container {
-            max-height: 65vh;
-            padding-bottom: 6rem;
-        }
-        
-        .fixed-footer {
-            width: 95% !important;
-            bottom: 0.5rem !important;
-            font-size: 0.7rem !important;
-            padding: 0.3rem !important;
-        }
-        
-        .stChatMessage {
-            margin: 0.5rem 0 !important;
-        }
+    /* Chat message animations */
+    @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(20px); }
+        to { opacity: 1; transform: translateY(0); }
     }
 
-    /* Desktop styles */
-    @media (min-width: 769px) {
-        .main {
-            max-width: 800px !important;
-            margin: auto;
-        }
-    }
-
-    /* Universal styles */
-    [data-testid="stChatMessageUser"], 
-    [data-testid="stChatMessageAssistant"] {
-        max-width: 85%;
-        word-wrap: break-word;
+    /* Message bubbles styling */
+    .stChatMessage {
+        animation: fadeIn 0.3s ease-in;
         margin: 1rem 0;
-        border: 1px solid #e5e7eb !important;
-        box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        transition: transform 0.2s;
     }
 
+    [data-testid="stChatMessageUser"] {
+        background-color: #ffffff !important;
+        border: 1px solid #e5e7eb !important;
+        border-radius: 20px 20px 0 20px !important;
+        margin-left: auto !important;
+        max-width: 75%;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+
+    [data-testid="stChatMessageAssistant"] {
+        background-color: #f8f9ff !important;
+        border-radius: 20px 20px 20px 0 !important;
+        max-width: 75%;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        border: 1px solid #e5e7eb !important;
+    }
+
+    /* Input field styling */
     .stChatInput {
         position: fixed !important;
         bottom: 5rem;
-        width: 90% !important;
-        max-width: 100% !important;
         left: 50% !important;
         transform: translateX(-50%) !important;
-        border-radius: 12px !important;
-        padding: 0.8rem !important;
-        font-size: 1rem;
+        width: 80% !important;
+        max-width: 800px !important;
+        background: white !important;
+        border: 2px solid #e5e7eb !important;
+        border-radius: 15px !important;
+        padding: 1rem !important;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.1);
         z-index: 999;
     }
 
-    .chat-container {
-        max-height: 70vh;
-        overflow-y: auto;
-        padding-bottom: 8rem;
-        -webkit-overflow-scrolling: touch;
+    .stChatInput:hover {
+        border-color: #4F46E5 !important;
+        box-shadow: 0 4px 12px rgba(79, 70, 229, 0.2);
     }
 
-    .fixed-footer {
-        position: fixed !important;
-        bottom: 1rem;
-        left: 50%;
-        transform: translateX(-50%);
-        width: 90%;
-        max-width: 800px;
-        text-align: center;
-        color: #666;
-        background: rgba(255,255,255,0.9);
-        backdrop-filter: blur(5px);
-        border-radius: 8px;
-        z-index: 998;
-        padding: 0.5rem;
-    }
-
+    /* Header styling */
     .header-container {
         text-align: center;
-        margin-bottom: 1rem;
-        padding: 1rem 0;
-    }
-
-    .title {
-        font-size: 2.5rem;
-        font-weight: 700;
+        margin-bottom: 2rem;
+        padding: 2rem 0;
         background: linear-gradient(45deg, #4F46E5, #10B981);
         -webkit-background-clip: text;
         background-clip: text;
         color: transparent;
     }
 
+    .title {
+        font-size: 2.5rem;
+        font-weight: 700;
+        margin-bottom: 0.5rem;
+    }
+
+    .subtitle {
+        color: #666;
+        font-size: 1.1rem;
+        margin-bottom: 1rem;
+    }
+
+    /* Time display styling */
     .time-display {
         text-align: center;
         color: #666;
         font-size: 0.9em;
-        margin: 1rem auto;
+        margin-bottom: 2rem;
         padding: 0.5rem;
         background: #f8f9fa;
         border-radius: 8px;
         display: inline-block;
+        margin: 0 auto 2rem;
     }
 
-    @keyframes fadeIn {
-        from { opacity: 0; transform: translateY(20px); }
-        to { opacity: 1; transform: translateY(0); }
-    }
-
-    .stChatMessage {
-        animation: fadeIn 0.3s ease-in;
-        transition: transform 0.2s;
-    }
-
+    /* Loading spinner styling */
     .stSpinner > div {
         border-color: #4F46E5 !important;
         border-right-color: transparent !important;
     }
+
+    /* Scrollable chat container */
+    .chat-container {
+        max-height: 70vh;
+        overflow-y: auto;
+        padding-bottom: 8rem;
+    }
+            
+     /* Fixed footer styling */
+    .fixed-footer {
+        position: fixed !important;
+        bottom: 1.5rem;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 80%;
+        max-width: 800px;
+        text-align: center;
+        color: #666;
+        font-size: 0.8rem;
+        padding: 0.5rem;
+        background: rgba(255,255,255,0.9);
+        backdrop-filter: blur(5px);
+        border-radius: 8px;
+        z-index: 998;
+    }
+
+       
 </style>
 """, unsafe_allow_html=True)
 
 # Header section
-current_time = datetime.now().strftime("%A, %d %B %Y | %I:%M %p")
-st.markdown(f"""
+st.markdown("""
 <div class="header-container">
     <h1 class="title">ArvaGPT</h1>
-    <div class="subtitle">AI-Powered Chatbot with Real-Time</div>
-    <div class="time-display">{current_time}</div>
+    <div class="subtitle">AI-Powered Chatbot with Real-Time </div>
+    <div class="time-display">{}</div>
 </div>
-""", unsafe_allow_html=True)
+""".format(datetime.now().strftime("%A, %d %B %Y | %I:%M %p")), unsafe_allow_html=True)
 
 # Initialize Groq client
 api_key = "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"
@@ -228,7 +205,7 @@ if prompt := st.chat_input("Message ArvaGPT..."):
     with st.spinner("ArvaGPT is typing..."):
         response = client.chat.completions.create(
             messages=st.session_state.messages,
-            model="llama3-70b-8192",
+            model="llama-3.3-70b-versatile",
             temperature=0.5
         )
     
