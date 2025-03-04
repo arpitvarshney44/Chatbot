@@ -24,6 +24,10 @@ st.markdown("""
         backdrop-filter: blur(10px);
         border-radius: 20px;
         padding: 2rem;
+        max-width: 800px;
+        margin: auto;
+        min-height: 100vh;
+        overflow: hidden;
     }
     
     @keyframes gradient {
@@ -31,15 +35,7 @@ st.markdown("""
         50% { background-position: 100% 50%; }
         100% { background-position: 0% 50%; }
     }
-    /* Main container styling */
-    .main {
-        max-width: 800px;
-        margin: auto;
-        padding: 2rem 1rem;
-        min-height: 100vh;
-        overflow: hidden;
-    }
-
+    
     /* Chat message animations */
     @keyframes fadeIn {
         from { opacity: 0; transform: translateY(20px); }
@@ -138,6 +134,8 @@ st.markdown("""
         max-height: 70vh;
         overflow-y: auto;
         padding-bottom: 8rem;
+        border-radius: 20px;
+        overflow: hidden;
     }
             
      /* Fixed footer styling */
