@@ -13,7 +13,11 @@ st.set_page_config(
 # Custom CSS for styling
 st.markdown("""
 <style>
-    /* Global styles */
+    /* Global Styles */
+    * {
+        box-sizing: border-box !important;
+    }
+
     body {
         background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
         background-size: 400% 400%;
@@ -22,7 +26,7 @@ st.markdown("""
         padding: 0;
     }
 
-    /* Main container */
+    /* Main Container */
     .main {
         background: rgba(255,255,255,0.9) !important;
         backdrop-filter: blur(10px) !important;
@@ -32,12 +36,11 @@ st.markdown("""
         margin: auto !important;
         min-height: 100vh !important;
         overflow: hidden !important;
-        transform: translateZ(0);
         position: relative !important;
         box-shadow: 0 0 20px rgba(0,0,0,0.1) !important;
     }
 
-    /* Header styling */
+    /* Header */
     .header-container {
         text-align: center;
         margin-bottom: 2rem;
@@ -48,25 +51,24 @@ st.markdown("""
         color: transparent;
     }
 
-    /* Chat container */
+    /* Chat Container */
     .chat-container {
         max-height: 70vh !important;
         overflow-y: auto !important;
-        padding: 0 1rem 8rem !important;
+        padding: 0 12px 8rem !important;
+        margin: 0 -12px !important;
         border-radius: 20px !important;
         overflow: hidden !important;
-        transform: translateZ(0);
         isolation: isolate !important;
     }
 
-    /* Message bubbles */
+    /* Message Bubbles */
     [data-testid="stChatMessage"] {
-        max-width: 85% !important;
-        margin: 8px auto !important;
+        margin: 8px 12px !important;
         border-radius: 20px !important;
         overflow: hidden !important;
         animation: fadeIn 0.3s ease-in;
-        transition: transform 0.2s;
+        max-width: calc(100% - 24px) !important;
     }
 
     [data-testid="stChatMessageUser"] {
@@ -75,7 +77,6 @@ st.markdown("""
         border-radius: 20px 20px 0 20px !important;
         margin-left: auto !important;
         box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-        transform: scale(0.98) translateZ(0);
     }
 
     [data-testid="stChatMessageAssistant"] {
@@ -83,10 +84,9 @@ st.markdown("""
         border-radius: 20px 20px 20px 0 !important;
         box-shadow: 0 2px 4px rgba(0,0,0,0.05);
         border: 1px solid #e5e7eb !important;
-        transform: scale(0.98) translateZ(0);
     }
 
-    /* Input field */
+    /* Input Field */
     .stChatInput {
         position: fixed !important;
         bottom: 5rem;
@@ -114,7 +114,7 @@ st.markdown("""
         to { opacity: 1; transform: translateY(0); }
     }
 
-    /* Mobile responsiveness */
+    /* Mobile Responsiveness */
     @media (max-width: 768px) {
         .main {
             margin: 10px !important;
@@ -127,11 +127,13 @@ st.markdown("""
         .chat-container {
             max-height: 60vh !important;
             border-radius: 18px !important;
-            padding: 0 0.5rem 6rem !important;
+            padding: 0 8px 6rem !important;
+            margin: 0 -8px !important;
         }
         
         [data-testid="stChatMessage"] {
-            max-width: 92% !important;
+            margin: 8px !important;
+            max-width: calc(100% - 16px) !important;
             border-radius: 18px !important;
         }
         
@@ -159,13 +161,14 @@ st.markdown("""
         z-index: 998;
     }
 
-    /* Loading spinner */
+    /* Loading Spinner */
     .stSpinner > div {
         border-color: #4F46E5 !important;
         border-right-color: transparent !important;
     }
 </style>
 """, unsafe_allow_html=True)
+
 # Header section
 st.markdown("""
 <div class="header-container">
