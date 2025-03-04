@@ -28,6 +28,7 @@ st.markdown("""
         margin: auto;
         min-height: 100vh;
         overflow: hidden;
+        position: relative;
     }
     
     @keyframes gradient {
@@ -155,7 +156,28 @@ st.markdown("""
         border-radius: 8px;
         z-index: 998;
     }
-
+    /* Add this at the end of your existing CSS */
+    @media (max-width: 768px) {
+        .main {
+            border-radius: 20px !important;
+            overflow: hidden !important;
+            margin: 10px !important;
+            width: calc(100% - 20px) !important;
+            min-height: 95vh !important;
+        }
+        
+        .chat-container {
+            max-height: 60vh !important;
+            padding: 0 0.5rem 6rem !important;
+        }
+        
+        [data-testid="stChatMessageUser"],
+        [data-testid="stChatMessageAssistant"] {
+            max-width: 90% !important;
+            margin-left: 5px !important;
+            margin-right: 5px !important;
+        }
+    }
        
 </style>
 """, unsafe_allow_html=True)
