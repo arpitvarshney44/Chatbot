@@ -37,6 +37,7 @@ st.markdown("""
         margin: auto;
         padding: 2rem 1rem;
         min-height: 100vh;
+        overflow: hidden;
     }
 
     /* Chat message animations */
