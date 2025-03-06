@@ -20,7 +20,7 @@ st.markdown("""
     .main {
         background-color: #ffffff;
         padding-top: 6rem !important;
-        padding-bottom: 10rem !important;
+        padding-bottom: 6rem !important;
     }
     
     /* Chat messages container */
@@ -39,7 +39,7 @@ st.markdown("""
         margin: 1rem 0;
         border-radius: 10px;
         padding: 1rem;
-        max-width: 75%;
+        max-width: 100%;
     }
     
     /* User message styling */
