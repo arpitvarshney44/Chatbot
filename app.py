@@ -8,7 +8,7 @@ st.set_page_config(
     initial_sidebar_state="collapsed"
 )
 
-# Custom CSS (unchanged from original)
+# Custom CSS
 st.markdown("""
 <style>
     /* Remove sidebar */
@@ -34,14 +34,6 @@ st.markdown("""
         z-index: 10;
     }
             
-    /* Message styling */
-    .stChatMessage {
-        margin: 1rem 0;
-        border-radius: 10px;
-        padding: 0.5rem;
-        max-width: 100%;
-    }
-    
     /* User message styling */
     div[data-testid="stChatMessage"][aria-label="user"] {
         background-color: #f0f4ff;
@@ -136,8 +128,8 @@ st.markdown('<div class="centered-header">ArvaGPT</div>', unsafe_allow_html=True
 st.markdown('<div class="centered-caption">Powered by Groq & Llama 3</div>', unsafe_allow_html=True)
 
 # Initialize Groq client securely
-client = Groq(api_key=st.secrets["GROQ_API_KEY"])
-model_name = st.secrets.get("MODEL_NAME", "llama-3.3-70b-versatile")
+client = Groq(api_key="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")
+model_name = "llama-3.3-70b-versatile"
 
 # Initialize chat history with clear button
 if "messages" not in st.session_state:
