@@ -26,19 +26,19 @@ st.markdown("""
     /* Chat messages container */
     .stChatMessage {
         max-width: 800px;
-        margin: 0.5rem auto;
+        margin: 0.25rem auto;
         border-radius: 10px;
-        padding: 1rem;
-        margin-bottom: 1rem;
+        padding: 0.5rem;
+        margin-bottom: 0.5rem;
         position: relative;
-        z-index: 1000;
+        z-index: 10;
     }
             
     /* Message styling */
     .stChatMessage {
         margin: 1rem 0;
         border-radius: 10px;
-        padding: 2rem;
+        padding: 0.5rem;
         max-width: 100%;
     }
     
@@ -59,15 +59,15 @@ st.markdown("""
     /* Input box positioning */
     .stChatInput {
         position: fixed !important;
-        bottom: 4rem;
+        bottom: 2.5rem;
         left: 50%;
         transform: translateX(-50%);
         width: 60%;
         background: white;
-        border-radius: 8px;
+        border-radius: 4px;
         border: 1px solid #e5e7eb !important;
         box-shadow: 0 2px 5px rgba(0,0,0,0.05) !important;
-        padding: 1rem;
+        padding: 0.5rem;
         z-index: 100;
     }
     
@@ -77,7 +77,7 @@ st.markdown("""
         bottom: 0;
         left: 0;
         right: 0;
-        height: 4rem;
+        height: 3rem;
         background-color: #000000;
         color: white;
         z-index: 1001;
@@ -94,7 +94,7 @@ st.markdown("""
     /* Separator line above footer */
     .footer-separator {
         position: fixed;
-        bottom: 4rem;
+        bottom: 2rem;
         left: 0;
         right: 0;
         height: 1px;
@@ -107,7 +107,7 @@ st.markdown("""
         text-align: center;
         color: #202123;
         font-size: 2rem;
-        margin: 2rem 0 1rem 0;
+        margin: 1rem 0 1rem 0;
         font-weight: bold;
     }
     
@@ -115,7 +115,7 @@ st.markdown("""
     .centered-caption {
         text-align: center;
         color: #6b7280;
-        margin-bottom: 2rem;
+        margin-bottom: 1rem;
         font-size: 0.9rem;
     }
 </style>
@@ -126,7 +126,7 @@ st.markdown("""
 <div class="footer-separator"></div>
 <div class="footer">
     <div class="footer-content">
-        ArvaGPT v1.0 • © 2025 • Powered by Groq & Llama 3
+        ArvaGPT v1.1 • © 2025 • Powered by AI • ArvaGPT can make mistakes. Check important info.
     </div>
 </div>
 """, unsafe_allow_html=True)
@@ -141,7 +141,7 @@ client = Groq(api_key="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"
 
 # Initialize chat history
 if "messages" not in st.session_state:
-    st.session_state.messages = [{"role": "assistant", "content": "How can I help you today?"}]
+    st.session_state.messages = [{"role": "assistant", "content": "Hey! What do you want to ask?"}]
 
 # Chat container
 chat_container = st.container()
@@ -158,7 +158,7 @@ with chat_container:
 
 
 # Accept user input
-if prompt := st.chat_input("Message ArvaGPT..."):
+if prompt := st.chat_input("Ask ArvaGPT..."):
     st.session_state.messages.append({"role": "user", "content": prompt})
     
     with st.chat_message("user"):
@@ -176,3 +176,4 @@ if prompt := st.chat_input("Message ArvaGPT..."):
     st.session_state.messages.append({"role": "assistant", "content": msg})
     with st.chat_message("assistant"):
         st.markdown(msg)
+        
