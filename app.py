@@ -38,7 +38,7 @@ st.markdown("""
     .stChatMessage {
         margin: 1rem 0;
         border-radius: 10px;
-        padding: 3rem;
+        padding: 0.5rem;
         max-width: 100%;
     }
     
