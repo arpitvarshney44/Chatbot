@@ -171,7 +171,7 @@ if prompt := st.chat_input("Ask ArvaGPT..."):
     # Get response
 try:
     with st.spinner("Thinking..."):
-        response = client.chat.completion.create(
+        response = client.chat.completions.create(
             messages=st.session_state.messages,
             model="llama-3.3-70b-versatile",
             temperature=0.5
