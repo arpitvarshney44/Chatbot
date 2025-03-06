@@ -37,15 +37,19 @@ st.markdown("""
     /* User message styling */
     div[data-testid="stChatMessage"][aria-label="user"] {
         background-color: #f0f4ff;
-        margin-left: auto;
+        float: left;
         border: 1px solid #d0d7de;
+        margin-right: 10px;
+        max-width: 60%;
     }
-    
+
     /* Assistant message styling */
     div[data-testid="stChatMessage"][aria-label="assistant"] {
         background-color: #f9f9f9;
-        margin-right: auto;
+        float: left;
         border: 1px solid #e5e7eb;
+        margin-right: 10px;
+        max-width: 60%;
     }
     
     /* Input box positioning */
