@@ -126,7 +126,7 @@ st.markdown("""
 <div class="footer-separator"></div>
 <div class="footer">
     <div class="footer-content">
-        ArvaGPT v1.1 • © 2025 • Powered by AI • ArvaGPT can make mistakes. Check important info.
+        ArvaGPT v1.1 • © 2025 • Powered by AI 
     </div>
 </div>
 """, unsafe_allow_html=True)
