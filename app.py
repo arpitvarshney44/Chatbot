@@ -139,14 +139,10 @@ st.markdown('<div class="centered-caption">Powered by Groq & Llama 3</div>', uns
 # Initialize Groq client
 client = Groq(api_key="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")
 
-# Initialize chat history with clear button
+# Initialize chat history
 if "messages" not in st.session_state:
     st.session_state.messages = [{"role": "assistant", "content": "Hey! What do you want to ask?"}]
 
-# Clear chat button
-if st.button("Clear Chat", type="secondary"):
-    st.session_state.messages = [{"role": "assistant", "content": "Hey! What do you want to ask?"}]
-    st.rerun()
 # Chat container
 chat_container = st.container()
 
@@ -169,16 +165,13 @@ if prompt := st.chat_input("Ask ArvaGPT..."):
         st.markdown(prompt)
 
     # Get response
-try:
-    with st.spinner("Thinking..."):
-        response = client.chat.completions.create(
-            messages=st.session_state.messages,
-            model="llama-3.3-70b-versatile",
-            temperature=0.5
-        )
-        msg = response.choices[0].message.content
-except Exception as e:
-    msg = f" Error: {str(e)}"
+    response = client.chat.completions.create(
+        messages=st.session_state.messages,
+        model="llama-3.3-70b-versatile",
+        temperature=0.5
+    )
+    
+    msg = response.choices[0].message.content
     
     st.session_state.messages.append({"role": "assistant", "content": msg})
     with st.chat_message("assistant"):
