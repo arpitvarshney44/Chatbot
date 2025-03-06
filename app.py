@@ -169,16 +169,16 @@ if prompt := st.chat_input("Ask ArvaGPT..."):
         st.markdown(prompt)
 
     # Get response
-    try:
-       with st.spinner("Thinking..."):
-           response = client.chat.completion.create(
-               messages=st.session_state.messages,
-               model="llama-3.3-70b-versatile",
-               temperature=0.5
-           )
-           msg = response.choices[0].message.content
-   except Exception as e:
-       msg = f" Error: {str(e)}"
+try:
+    with st.spinner("Thinking..."):
+        response = client.chat.completion.create(
+            messages=st.session_state.messages,
+            model="llama-3.3-70b-versatile",
+            temperature=0.5
+        )
+        msg = response.choices[0].message.content
+except Exception as e:
+    msg = f" Error: {str(e)}"
     
     st.session_state.messages.append({"role": "assistant", "content": msg})
     with st.chat_message("assistant"):
