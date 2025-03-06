@@ -34,22 +34,26 @@ st.markdown("""
         z-index: 10;
     }
             
+    /* Message styling */
+    .stChatMessage {
+        margin: 1rem 0;
+        border-radius: 10px;
+        padding: 0.5rem;
+        max-width: 100%;
+    }
+    
     /* User message styling */
     div[data-testid="stChatMessage"][aria-label="user"] {
         background-color: #f0f4ff;
-        float: left;
+        margin-left: auto;
         border: 1px solid #d0d7de;
-        margin-right: 10px;
-        max-width: 60%;
     }
-
+    
     /* Assistant message styling */
     div[data-testid="stChatMessage"][aria-label="assistant"] {
         background-color: #f9f9f9;
-        float: left;
+        margin-right: auto;
         border: 1px solid #e5e7eb;
-        margin-right: 10px;
-        max-width: 60%;
     }
     
     /* Input box positioning */
@@ -127,13 +131,13 @@ st.markdown("""
 </div>
 """, unsafe_allow_html=True)
 
+
 # Centered header and caption
 st.markdown('<div class="centered-header">ArvaGPT</div>', unsafe_allow_html=True)
 st.markdown('<div class="centered-caption">Powered by Groq & Llama 3</div>', unsafe_allow_html=True)
 
-# Initialize Groq client securely
+# Initialize Groq client
 client = Groq(api_key="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")
-model_name = "llama-3.3-70b-versatile"
 
 # Initialize chat history with clear button
 if "messages" not in st.session_state:
@@ -143,7 +147,6 @@ if "messages" not in st.session_state:
 if st.button("Clear Chat", type="secondary"):
     st.session_state.messages = [{"role": "assistant", "content": "Hey! What do you want to ask?"}]
     st.rerun()
-
 # Chat container
 chat_container = st.container()
 
@@ -157,6 +160,7 @@ with chat_container:
     
     st.markdown('</div>', unsafe_allow_html=True)
 
+
 # Accept user input
 if prompt := st.chat_input("Ask ArvaGPT..."):
     st.session_state.messages.append({"role": "user", "content": prompt})
@@ -164,18 +168,19 @@ if prompt := st.chat_input("Ask ArvaGPT..."):
     with st.chat_message("user"):
         st.markdown(prompt)
 
-    # Get response with error handling
+    # Get response
     try:
-        with st.spinner("Thinking..."):
-            response = client.chat.completions.create(
-                messages=st.session_state.messages,
-                model=model_name,
-                temperature=0.5
-            )
-            msg = response.choices[0].message.content
-    except Exception as e:
-        msg = f"⚠️ Error: {str(e)}"
-
+       with st.spinner("Thinking..."):
+           response = client.chat.completion.create(
+               messages=st.session_state.messages,
+               model="llama-3.3-70b-versatile",
+               temperature=0.5
+           )
+           msg = response.choices[0].message.content
+   except Exception as e:
+       msg = f" Error: {str(e)}"
+    
     st.session_state.messages.append({"role": "assistant", "content": msg})
     with st.chat_message("assistant"):
         st.markdown(msg)
+        
