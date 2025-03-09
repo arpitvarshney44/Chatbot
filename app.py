@@ -1,5 +1,10 @@
 import streamlit as st
 from groq import Groq
+from dotenv import load_dotenv
+import os
+
+# Load environment variables
+load_dotenv()
 
 # Set up the page configuration
 st.set_page_config(
@@ -137,7 +142,7 @@ st.markdown('<div class="centered-header">ArvaGPT</div>', unsafe_allow_html=True
 st.markdown('<div class="centered-caption">Powered by Groq & Llama 3</div>', unsafe_allow_html=True)
 
 # Initialize Groq client
-client = Groq(api_key="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")
+client = Groq(api_key=os.getenv("GROQ_API_KEY"))
 
 # Initialize chat history
 if "messages" not in st.session_state:
